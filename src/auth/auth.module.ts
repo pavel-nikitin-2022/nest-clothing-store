@@ -10,6 +10,7 @@ import { ConfigService } from '../config/config.service'
 import { ConfigModule } from '../config/config.module'
 import { JwtRefreshTokenStrategy } from './strategies/jwtRefreshToken.strategy'
 import { JwtStrategy } from './strategies/jwt.strategy'
+import { CartService } from 'src/cart/cart.service'
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { JwtStrategy } from './strategies/jwt.strategy'
   providers: [
     AuthService,
     ConfigService,
+    CartService,
     UserService,
     JwtService,
     LocalStrategy,

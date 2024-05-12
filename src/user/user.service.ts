@@ -6,21 +6,23 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { compare, hash } from 'bcryptjs'
-import { Prisma, User } from '@prisma/client'
+import { Prisma, ProductInCart, User } from '@prisma/client'
 import { SerializedUser } from 'src/types/SerializedUser'
 import { PrismaService } from 'nestjs-prisma'
+import { CartService } from 'src/cart/cart.service'
 
 @Injectable()
 export class UserService {
   private readonly logger = new Logger('UserSerivce')
 
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private cartService: CartService) {}
 
   serializeUser(user: User): SerializedUser {
     return {
       id: user.id,
       fullName: user.fullName,
       email: user.email,
+      cartId: user.cartId,
     }
   }
 
@@ -88,7 +90,7 @@ export class UserService {
     return user
   }
 
-  async register(user: Omit<User, 'id' | 'refreshToken'>): Promise<User> {
+  async register(user: Omit<User, 'id' | 'refreshToken' | 'cartId'>): Promise<User> {
     const { email, password, fullName } = user
     const existingUser = await this.user({ email })
 
@@ -104,6 +106,9 @@ export class UserService {
       password: await this.hash(password),
       fullName,
     })
+
+    const newCart = await this.cartService.createCart(newUser.id)
+    this.updateUser({where: {id: newUser.id}, data: {...newUser, cartId: newCart.id}})
 
     return newUser
   }

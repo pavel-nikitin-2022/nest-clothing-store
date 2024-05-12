@@ -131,7 +131,7 @@ export class AuthService {
     }
   }
 
-  async register(userData: Omit<User, 'id' | 'refreshToken'>) {
+  async register(userData: Omit<User, 'id' | 'refreshToken' | 'cartId'>) {
     const user = await this.userService.register(userData)
     const tokens = await this.getTokens(user.id, user.email)
     const userWithRefreshToken = await this.updateRefreshToken(

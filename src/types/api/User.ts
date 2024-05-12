@@ -1,7 +1,6 @@
 import { User } from '@prisma/client'
 import { SerializedUser } from '../SerializedUser'
 
-export type UserGetSelfReq = unknown
 export type UserGetSelfRes = { user: SerializedUser | null }
 
 export type Tokens = { accessToken: string; refreshToken: string }

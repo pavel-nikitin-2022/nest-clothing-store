@@ -21,4 +21,5 @@ export class UserController {
     const user = await this.userService.getSelf(req.user.userId)
     return { user }
   }
+
 }

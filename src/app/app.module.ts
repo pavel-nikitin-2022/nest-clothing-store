@@ -4,6 +4,7 @@ import { UserModule } from 'src/user/user.module'
 import { AuthModule } from 'src/auth/auth.module'
 import { ConfigModule } from 'src/config/config.module'
 import { PrismaModule, loggingMiddleware } from 'nestjs-prisma'
+import { CartModule } from 'src/cart/cart.module'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PrismaModule, loggingMiddleware } from 'nestjs-prisma'
     }),
     UserModule,
     AuthModule,
+    CartModule
   ],
   controllers: [AppController],
 })
