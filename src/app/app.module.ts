@@ -3,7 +3,6 @@ import { AppController } from './app.controller'
 import { UserModule } from 'src/user/user.module'
 import { AuthModule } from 'src/auth/auth.module'
 import { ConfigModule } from 'src/config/config.module'
-import { TodoModule } from 'src/todo/todo.module'
 import { PrismaModule, loggingMiddleware } from 'nestjs-prisma'
 
 @Module({
@@ -23,7 +22,6 @@ import { PrismaModule, loggingMiddleware } from 'nestjs-prisma'
       },
     }),
     UserModule,
-    TodoModule,
     AuthModule,
   ],
   controllers: [AppController],

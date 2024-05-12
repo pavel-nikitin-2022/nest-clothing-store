@@ -13,4 +13,10 @@ export class RegisterDto {
   })
   @IsNotEmpty({ message: 'Password field is required' })
   password: string
+
+  @ApiProperty({
+    description: 'User password',
+  })
+  @IsNotEmpty({ message: 'Password field is required' })
+  fullName: string
 }

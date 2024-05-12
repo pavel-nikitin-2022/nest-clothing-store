@@ -19,6 +19,7 @@ export class UserService {
   serializeUser(user: User): SerializedUser {
     return {
       id: user.id,
+      fullName: user.fullName,
       email: user.email,
     }
   }
@@ -88,7 +89,7 @@ export class UserService {
   }
 
   async register(user: Omit<User, 'id' | 'refreshToken'>): Promise<User> {
-    const { email, password } = user
+    const { email, password, fullName } = user
     const existingUser = await this.user({ email })
 
     if (existingUser) {
@@ -101,6 +102,7 @@ export class UserService {
     const newUser = await this.createUser({
       email,
       password: await this.hash(password),
+      fullName,
     })
 
     return newUser
