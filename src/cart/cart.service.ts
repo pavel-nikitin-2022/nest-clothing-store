@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma'; // Предполагается, что у вас есть сервис для работы с Prisma
-import { Cart, ProductInCart } from '@prisma/client';
+import { Cart, Product, ProductInCart } from '@prisma/client';
 
 @Injectable()
 export class CartService {
@@ -71,4 +71,6 @@ export class CartService {
   
     return updatedProduct;
   }
+
+
 }

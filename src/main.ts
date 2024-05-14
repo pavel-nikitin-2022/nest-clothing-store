@@ -15,11 +15,10 @@ async function bootstrap() {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('nestjs-prisma-boilerplate')
-    .setDescription('TODO application')
+    .setDescription('Store application')
     .setVersion('1.0')
     .addTag('auth')
     .addTag('user')
-    .addTag('todo')
     .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, swaggerConfig, {

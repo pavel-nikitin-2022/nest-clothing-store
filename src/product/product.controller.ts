@@ -7,8 +7,9 @@ import {
 } from '@nestjs/common'
 import { ProductService } from './product.service'
 import { Product } from '@prisma/client'
-import { ApiQuery } from '@nestjs/swagger'
+import { ApiQuery, ApiTags } from '@nestjs/swagger'
 
+@ApiTags('products')
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -48,5 +49,9 @@ export class ProductController {
       throw new NotFoundException(`Product with ID ${id} not found`)
     }
     return product
+  }
+  @Get('products-with-discounts/:discountId')
+  async getProductsWithDiscounts(@Param('discountId') discountId: string): Promise<Product[]> {
+    return this.productService.getProductsWithDiscounts(Number(discountId));
   }
 }

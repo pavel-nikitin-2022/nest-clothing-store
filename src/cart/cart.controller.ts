@@ -5,7 +5,7 @@ import { JwtAuthGuard } from '../auth/strategies/jwt.strategy';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { CartGetSelfRes } from '../types/api/Cart';
 import { ProductInCartCreateDto, ProductInCartUpdateDto } from './dto/productInCart.dto';
-import { ProductInCart } from '@prisma/client';
+import { Product, ProductInCart } from '@prisma/client';
 
 @ApiTags('cart')
 @Controller('cart')
@@ -42,5 +42,7 @@ export class CartController {
   async updateProductInCart(@Param('productInCartId') productInCartId: string, @Body() productDto: ProductInCartUpdateDto): Promise<ProductInCart> {
     return this.cartService.updateProductInCart(Number(productInCartId), {count: productDto.count});
   }
+
+
 }
 

@@ -6,6 +6,7 @@ import { ConfigModule } from 'src/config/config.module'
 import { PrismaModule, loggingMiddleware } from 'nestjs-prisma'
 import { CartModule } from 'src/cart/cart.module'
 import { ProductModule } from 'src/product/product.module'
+import { DiscountModule } from 'src/discount/discount.module'
 
 
 @Module({
@@ -27,7 +28,8 @@ import { ProductModule } from 'src/product/product.module'
     UserModule,
     AuthModule,
     CartModule,
-    ProductModule
+    ProductModule,
+    DiscountModule 
   ],
   controllers: [AppController],
 })

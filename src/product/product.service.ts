@@ -62,4 +62,12 @@ export class ProductService {
     }
     return product
   }
+
+  async getProductsWithDiscounts(discountId: number): Promise<Product[]> {
+    return this.prisma.product.findMany({
+      where: {
+        discountId: discountId
+      }
+    });
+  }
 }
