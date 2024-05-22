@@ -9,6 +9,7 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
+    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -16,6 +17,14 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "baseUrl": "./",
+    "paths": {
+      "@cart/*": ["src/cart/*"],
+      "@product/*": ["src/product/*"],
+      "@discount/*": ["src/discount/*"],
+      "@category/*": ["src/category/*"],
+      "@config/*": ["src/config/*"],
+      "@auth/*": ["src/auth/*"],
+      "@user/*": ["src/user/*"]
+    }
   }
 }

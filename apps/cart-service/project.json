@@ -1,0 +1,44 @@
+{
+  "name": "cart-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cart-service/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/cart-service",
+        "main": "apps/cart-service/src/main.ts",
+        "tsConfig": "apps/cart-service/tsconfig.app.json",
+        "webpackConfig": "apps/cart-service/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cart-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cart-service:build:development"
+        },
+        "production": {
+          "buildTarget": "cart-service:build:production"
+        }
+      }
+    }
+  }
+}

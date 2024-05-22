@@ -1,0 +1,44 @@
+{
+  "name": "main-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/main-app/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/main-app",
+        "main": "apps/main-app/src/main.ts",
+        "tsConfig": "apps/main-app/tsconfig.app.json",
+        "webpackConfig": "apps/main-app/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "optimization": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "main-app:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "main-app:build:development"
+        },
+        "production": {
+          "buildTarget": "main-app:build:production"
+        }
+      }
+    }
+  }
+}
