@@ -54,14 +54,29 @@ export class CartService {
   }
 
   async removeProductFromCart(productInCartId: number): Promise<void> {
+    const productInCart = await this.prisma.productInCart.findUnique({
+      where: { id: productInCartId },
+    });
+
+    if (!productInCart) {
+      throw new NotFoundException(`Product with ID ${productInCartId} not found in cart`);
+    }
+
     await this.prisma.productInCart.delete({
-      where: {
-        id: productInCartId,
-      },
+      where: { id: productInCartId },
     });
   }
 
+  
   async updateProductInCart(productInCartId: number, updatedProductData: Partial<ProductInCart>): Promise<ProductInCart> {
+    const existingProduct = await this.prisma.productInCart.findUnique({
+      where: { id: productInCartId },
+    });
+
+    if (!existingProduct) {
+      throw new NotFoundException(`Product with ID ${productInCartId} not found in cart`);
+    }
+
     const updatedProduct = await this.prisma.productInCart.update({
       where: {
         id: productInCartId,
