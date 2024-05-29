@@ -39,6 +39,12 @@
           "buildTarget": "cart-service:build:production"
         }
       }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t cart-service:latest -f apps/cart-service/Dockerfile ."
+      }
     }
   }
 }

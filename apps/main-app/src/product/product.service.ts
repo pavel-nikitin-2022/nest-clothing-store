@@ -8,8 +8,8 @@ export class ProductService {
 
   async getAllProducts(
     title?: string,
-    minPrice?: string,
-    maxPrice?: string,
+    minPrice?: number,
+    maxPrice?: number,
     categoryNames?: string[]
   ): Promise<Product[]> {
     const where = {}

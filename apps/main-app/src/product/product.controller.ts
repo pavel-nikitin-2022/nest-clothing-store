@@ -27,8 +27,8 @@ export class ProductController {
   @Get()
   async getAllProducts(
     @Query('title') title?: string,
-    @Query('minPrice') minPrice?: string,
-    @Query('maxPrice') maxPrice?: string,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxPrice') maxPrice?: number,
     @Query('categoryNames') categoryNames?: string[]
   ): Promise<Product[]> {
     console.log(categoryNames)
@@ -36,8 +36,8 @@ export class ProductController {
     const parsedCategoryNames = categoryNames ? categoryNames : undefined
     return this.productService.getAllProducts(
       title,
-      minPrice,
-      maxPrice,
+      minPrice ? Number(minPrice) : undefined,
+      maxPrice ? Number(maxPrice) : undefined,
       parsedCategoryNames
     )
   }

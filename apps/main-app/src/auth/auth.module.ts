@@ -33,14 +33,16 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices'
       provide: 'CART_SERVICE',
       useFactory: () => {
         return ClientProxyFactory.create({
-          transport: Transport.TCP,
+          transport: Transport.RMQ,
           options: {
-            host: 'localhost',
-            port: 3001,
+            urls: ['amqp://rabbitmq:5672'],
+            queue: 'cart_service_queue',
+            queueOptions: {
+              durable: false,
+            },
           },
-        })
+        });
       },
-      inject: [],
     },
     AuthService,
     ConfigService,

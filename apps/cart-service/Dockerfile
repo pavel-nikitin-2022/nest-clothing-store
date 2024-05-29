@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+RUN apk update && apk add --no-cache openssl
+
+WORKDIR /app
+
+COPY ../../package.json ../../yarn.lock ./
+
+RUN yarn install --frozen-lockfile
+
+COPY ../../.env ./
+
+COPY ../../prisma ./prisma
+
+COPY . .
+
+RUN npx prisma generate
+
+CMD ["yarn", "nx", "run", "cart-service:serve"]

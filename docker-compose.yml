@@ -1,0 +1,58 @@
+version: '3.8'
+services:
+  cart-service:
+    build:
+      context: .
+      dockerfile: apps/cart-service/Dockerfile
+    ports:
+      - '3001:3000'
+    networks:
+      - postgres
+      
+  main-app:
+    build:
+      context: .
+      dockerfile: apps/main-app/Dockerfile
+    ports:
+      - '127.0.0.1:8000:8000'
+    networks:
+      - postgres
+    command: sh -c "yarn prisma migrate deploy && yarn nx run main-app:serve"
+
+  database:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456789
+    ports:
+      - '9000:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  prisma-studio:
+    container_name: prisma-studio
+    image: timothyjmiller/prisma-studio:latest
+    restart: unless-stopped
+    env_file:
+     - .env
+    ports:
+      - 5555:5555
+    networks:
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - postgres
+
+volumes:
+  pgdata:
+
+networks:
+  postgres:
+    driver: bridge

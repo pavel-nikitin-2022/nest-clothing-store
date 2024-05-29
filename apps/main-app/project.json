@@ -39,6 +39,12 @@
           "buildTarget": "main-app:build:production"
         }
       }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t main-app:latest -f apps/main-app/Dockerfile ."
+      }
     }
   }
 }
